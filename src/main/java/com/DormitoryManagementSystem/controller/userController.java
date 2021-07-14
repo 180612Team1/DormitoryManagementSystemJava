@@ -53,8 +53,7 @@ public class userController {
             json.put("message", "登录成功");
             json.put("id", user.getId());
             json.put("role", user.getRole());
-            json.put("trueName", user.getTrueName());
-            json.put("userName", user.getUserName());
+            json.put("userName",user.getUserName());
             return json;
         }
         json.put("code", "1002");
