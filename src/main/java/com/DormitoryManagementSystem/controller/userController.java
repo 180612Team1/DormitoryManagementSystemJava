@@ -53,7 +53,15 @@ public class userController {
             json.put("message", "登录成功");
             json.put("id", user.getId());
             json.put("role", user.getRole());
+            json.put("schoolId",user.getSchoolId());
+            json.put("trueName",user.getTrueName());
+            json.put("phoneNumber",user.getPhoneNumber());
+            json.put("checkTime",user.getCheckTime());
+            json.put("roomId",user.getRoomId());
+            json.put("buildId",user.getBuildId());
             json.put("userName",user.getUserName());
+            json.put("updateTime",user.getUpdateTime());
+            json.put("deleteTime",user.getDeleteTime());
             return json;
         }
         json.put("code", "1002");
