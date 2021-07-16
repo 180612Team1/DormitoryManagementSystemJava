@@ -45,7 +45,11 @@ public class userController {
         return json;
     }
 
-
+    @GetMapping("getAllAdmin")
+    public Object getAllAdmin(HttpServletRequest request,HttpServletResponse response){
+        List<User> user = userMapper.getAllAdmin();
+        return user;
+    }
     @GetMapping("login")
     public Object login(HttpServletRequest request, HttpServletResponse response) {
 
@@ -98,14 +102,18 @@ public class userController {
         }
     }
 
-    @GetMapping("register")
-    public Object register(HttpServletRequest request, HttpServletResponse response) {
-        String trueName = request.getParameter("trueName");
-        String nickName = request.getParameter("nickName");
-        String address = request.getParameter("address");
+    @GetMapping("addAdmin")
+    public Object addAdmin(HttpServletRequest request, HttpServletResponse response) {
+        String schoolId = request.getParameter("schoolId");
         String userName = request.getParameter("userName");
         String passWord = request.getParameter("passWord");
-        int resultCount = userMapper.saveUser(trueName, nickName, address, userName, passWord);
+        String phoneNumber = request.getParameter("phoneNumber");
+        String trueName = request.getParameter("trueName");
+        int role = Integer.parseInt(request.getParameter("role"));
+        String checkTime = request.getParameter("checkTime");
+        String buildId = request.getParameter("buildId");
+
+        int resultCount = userMapper.addAdmin(schoolId, userName, passWord, phoneNumber, trueName,role,checkTime,buildId);
         JSONObject json = new JSONObject();
         if (resultCount == 0) {
             json.put("code", "1001");
