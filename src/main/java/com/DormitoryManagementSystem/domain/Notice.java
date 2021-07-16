@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class Notice {
     private Integer id;
-    private Integer schoolId;
+    public Integer schoolId;
     private String noticeName;
     private String noticeContent;
     private String noticeTime;

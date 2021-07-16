@@ -25,24 +25,39 @@ public class noticeController {
     public Object getAllNotices(HttpServletRequest request, HttpServletResponse response) {
         Integer schoolId = Integer.valueOf(request.getParameter("schoolId"));
         String buildId = noticeMapper.getBuildId(schoolId);
-        System.out.println(buildId);
+//        System.out.println(buildId);
         Integer role = Integer.valueOf(noticeMapper.getRole(schoolId));
-        System.out.println(role);
+//        System.out.println(role);
         JSONObject json = new JSONObject();
         if (role == 0) {
             List<Notice> notice = noticeMapper.getAllNotices();
-
             json.put("notice", notice);
-        }
-        else{
+        } else {
             List<Notice> notice = noticeMapper.getAllNoticesByid(buildId);
             json.put("notice", notice);
         }
         return json;
     }
 
+    @GetMapping("deleteNoticeById")
+    public boolean deleteNoticeById(HttpServletRequest request, HttpServletResponse response) {
+        int Id = Integer.parseInt(request.getParameter("id"));
+        if (noticeMapper.deleteNoticeById(Id)) {
+            return true;
+        }
+
+        return false;
+    }
+
     @PostMapping("addNotice")
-    public Object addNotice(HttpServletRequest request, HttpServletResponse response) {
+    public int addNotice(HttpServletRequest request, HttpServletResponse response) {
+        int schoolId = Integer.parseInt(request.getParameter("schoolId"));
+        String noticeName = request.getParameter("noticeName");
+        String noticeContent = request.getParameter("noticeContent");
+        String noticeTime = request.getParameter("noticeTime");
+        String noticeForBuildId = request.getParameter("noticeForBuildId");
+        int count = noticeMapper.addNotice(schoolId,noticeName,noticeContent,noticeTime,noticeForBuildId);
+        System.out.println(count);
         return 2;
     }
 }

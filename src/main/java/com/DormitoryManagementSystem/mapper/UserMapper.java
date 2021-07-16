@@ -19,6 +19,12 @@ public interface UserMapper {
     @Select("select * from user")
     List<User> selectAllUsers();
 
+    @Select("select role from user where schoolId=#{schoolId}")
+    String getRole(Integer schoolId);
+
+    @Select("select trueName from user where schoolId=#{schoolId}")
+    String getTrueName(Integer schoolId);
+
     @Select("select * from user where username=#{userName} or truename =#{trueName}")
     List<User> searchUser(String trueName, String userName);
 }

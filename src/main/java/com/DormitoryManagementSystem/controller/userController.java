@@ -3,6 +3,7 @@ package com.DormitoryManagementSystem.controller;
 import com.DormitoryManagementSystem.mapper.UserMapper;
 import com.DormitoryManagementSystem.domain.User;
 import lombok.extern.slf4j.Slf4j;
+import net.sf.json.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +32,17 @@ public class userController {
         System.out.println(user);
         json.put("user", user);
         return json;
+    }
 
+    @GetMapping("getUserRoleAndTrueName")
+    public Object getRole(HttpServletRequest request,HttpServletResponse response){
+        Integer schoolId = Integer.valueOf(request.getParameter("schoolId"));
+        String role = userMapper.getRole(schoolId);
+        String trueName = userMapper.getTrueName(schoolId);
+        JSONObject json = new JSONObject();
+        json.put("role",role);
+        json.put("trueName",trueName);
+        return json;
     }
 
 
