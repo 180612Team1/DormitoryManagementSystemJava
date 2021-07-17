@@ -14,7 +14,7 @@ public interface UserMapper {
     @Select("select * from user where username=#{name}")
     User selectUser(String userName);
 
-    @Select("select * from user where role in (0,1)")
+    @Select("select * from user where role in (0,1) order by buildId")
     List<User> getAllAdmin();
 
     @Select("select * from user")
@@ -28,6 +28,10 @@ public interface UserMapper {
 
     @Select("select * from user where username=#{userName} or truename =#{trueName}")
     List<User> searchUser(String trueName, String userName);
+
     @Insert("INSERT into user(schoolId,userName,passWord,phoneNumber,trueName,role,checkTime,buildId) VALUES(#{schoolId},#{userName},#{passWord},#{phoneNumber},#{trueName},#{role},#{checkTime},#{buildId})")
-    int addAdmin(@Param("schoolId") String schoolId,@Param("userName") String userName, @Param("passWord") String passWord, @Param("phoneNumber") String phoneNumber,@Param("trueName") String trueName, @Param("role") int role, @Param("checkTime") String checkTime, @Param("buildId") String buildId);
+    int addAdmin(@Param("schoolId") String schoolId, @Param("userName") String userName, @Param("passWord") String passWord, @Param("phoneNumber") String phoneNumber, @Param("trueName") String trueName, @Param("role") int role, @Param("checkTime") String checkTime, @Param("buildId") String buildId);
+
+    @Select("select count(id) from user where buildId = #{buildId} and role = 2")
+    Integer getStudentsByBuildId(String buildId);
 }

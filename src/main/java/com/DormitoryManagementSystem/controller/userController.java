@@ -35,21 +35,22 @@ public class userController {
     }
 
     @GetMapping("getUserRoleAndTrueName")
-    public Object getRole(HttpServletRequest request,HttpServletResponse response){
+    public Object getRole(HttpServletRequest request, HttpServletResponse response) {
         Integer schoolId = Integer.valueOf(request.getParameter("schoolId"));
         String role = userMapper.getRole(schoolId);
         String trueName = userMapper.getTrueName(schoolId);
         JSONObject json = new JSONObject();
-        json.put("role",role);
-        json.put("trueName",trueName);
+        json.put("role", role);
+        json.put("trueName", trueName);
         return json;
     }
 
     @GetMapping("getAllAdmin")
-    public Object getAllAdmin(HttpServletRequest request,HttpServletResponse response){
+    public Object getAllAdmin(HttpServletRequest request, HttpServletResponse response) {
         List<User> user = userMapper.getAllAdmin();
         return user;
     }
+
     @GetMapping("login")
     public Object login(HttpServletRequest request, HttpServletResponse response) {
 
@@ -68,15 +69,15 @@ public class userController {
             json.put("message", "登录成功");
             json.put("id", user.getId());
             json.put("role", user.getRole());
-            json.put("schoolId",user.getSchoolId());
-            json.put("trueName",user.getTrueName());
-            json.put("phoneNumber",user.getPhoneNumber());
-            json.put("checkTime",user.getCheckTime());
-            json.put("roomId",user.getRoomId());
-            json.put("buildId",user.getBuildId());
-            json.put("userName",user.getUserName());
-            json.put("updateTime",user.getUpdateTime());
-            json.put("deleteTime",user.getDeleteTime());
+            json.put("schoolId", user.getSchoolId());
+            json.put("trueName", user.getTrueName());
+            json.put("phoneNumber", user.getPhoneNumber());
+            json.put("checkTime", user.getCheckTime());
+            json.put("roomId", user.getRoomId());
+            json.put("buildId", user.getBuildId());
+            json.put("userName", user.getUserName());
+            json.put("updateTime", user.getUpdateTime());
+            json.put("deleteTime", user.getDeleteTime());
             return json;
         }
         json.put("code", "1002");
@@ -102,6 +103,13 @@ public class userController {
         }
     }
 
+    @GetMapping("getStudentsByBuildId")
+    public Object getStudentsByBuildId(HttpServletRequest request, HttpServletResponse response) {
+        String buildId = request.getParameter("buildId");
+        Integer count = userMapper.getStudentsByBuildId(buildId);
+        return count;
+    }
+
     @GetMapping("addAdmin")
     public Object addAdmin(HttpServletRequest request, HttpServletResponse response) {
         String schoolId = request.getParameter("schoolId");
@@ -113,7 +121,7 @@ public class userController {
         String checkTime = request.getParameter("checkTime");
         String buildId = request.getParameter("buildId");
 
-        int resultCount = userMapper.addAdmin(schoolId, userName, passWord, phoneNumber, trueName,role,checkTime,buildId);
+        int resultCount = userMapper.addAdmin(schoolId, userName, passWord, phoneNumber, trueName, role, checkTime, buildId);
         JSONObject json = new JSONObject();
         if (resultCount == 0) {
             json.put("code", "1001");
