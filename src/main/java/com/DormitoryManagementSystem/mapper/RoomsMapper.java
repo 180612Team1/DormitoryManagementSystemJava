@@ -1,5 +1,6 @@
 package com.DormitoryManagementSystem.mapper;
 
+import com.DormitoryManagementSystem.domain.Rooms;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -14,4 +15,7 @@ public interface RoomsMapper {
 
     @Select("select COUNT(id) from rooms where buildId=#{buildId}")
     Integer getRoomNumberByBuildId(String buildId);
+
+    @Select("Select * from rooms")
+    List<Rooms> getAllRooms();
 }

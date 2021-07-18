@@ -106,7 +106,12 @@ public class userController {
     @GetMapping("getStudentsByBuildId")
     public Object getStudentsByBuildId(HttpServletRequest request, HttpServletResponse response) {
         String buildId = request.getParameter("buildId");
-        Integer count = userMapper.getStudentsByBuildId(buildId);
+        Integer count = null;
+        try {
+            count = userMapper.getStudentsByBuildId(buildId);
+        } catch (Exception e) {
+          log.error(e.getMessage());
+        }
         return count;
     }
 
@@ -121,7 +126,12 @@ public class userController {
         String checkTime = request.getParameter("checkTime");
         String buildId = request.getParameter("buildId");
 
-        int resultCount = userMapper.addAdmin(schoolId, userName, passWord, phoneNumber, trueName, role, checkTime, buildId);
+        int resultCount = 0;
+        try {
+            resultCount = userMapper.addAdmin(schoolId, userName, passWord, phoneNumber, trueName, role, checkTime, buildId);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
         JSONObject json = new JSONObject();
         if (resultCount == 0) {
             json.put("code", "1001");

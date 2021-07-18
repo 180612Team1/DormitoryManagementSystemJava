@@ -76,7 +76,7 @@ public class buildController {
         }
 
         JSONObject json = new JSONObject();
-//        json.put("addbuild",addBuild);
+        json.put("addbuild",addBuild);
         json.put("roomCount",count);
         return json;
 

@@ -45,7 +45,6 @@ public class noticeController {
         if (noticeMapper.deleteNoticeById(Id)) {
             return true;
         }
-
         return false;
     }
 
@@ -58,6 +57,6 @@ public class noticeController {
         String noticeForBuildId = request.getParameter("noticeForBuildId");
         int count = noticeMapper.addNotice(schoolId,noticeName,noticeContent,noticeTime,noticeForBuildId);
         System.out.println(count);
-        return 2;
+        return count;
     }
 }
