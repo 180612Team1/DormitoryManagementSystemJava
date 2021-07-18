@@ -25,9 +25,7 @@ public class noticeController {
     public Object getAllNotices(HttpServletRequest request, HttpServletResponse response) {
         Integer schoolId = Integer.valueOf(request.getParameter("schoolId"));
         String buildId = noticeMapper.getBuildId(schoolId);
-//        System.out.println(buildId);
         Integer role = Integer.valueOf(noticeMapper.getRole(schoolId));
-//        System.out.println(role);
         JSONObject json = new JSONObject();
         if (role == 0) {
             List<Notice> notice = noticeMapper.getAllNotices();

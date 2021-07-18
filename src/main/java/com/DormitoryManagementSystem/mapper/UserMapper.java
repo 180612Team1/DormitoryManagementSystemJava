@@ -34,6 +34,7 @@ public interface UserMapper {
 
     @Insert("INSERT into user(schoolId,userName,passWord,phoneNumber,trueName,role,checkTime,buildId,roomId,updateTime) VALUES(#{schoolId},#{userName},#{passWord},#{phoneNumber},#{trueName},2,#{checkTime},#{buildId},#{roomId},#{updateTime})")
     int addStu(@Param("schoolId") String schoolId, @Param("userName") String userName, @Param("passWord") String passWord, @Param("phoneNumber") String phoneNumber, @Param("trueName") String trueName,@Param("checkTime") String checkTime, @Param("buildId") String buildId,@Param("roomId")String roomId,@Param("updateTime")String updateTime);
+
     @Select("select count(id) from user where buildId = #{buildId} and role = 2")
     Integer getStudentsByBuildId(String buildId);
 }
