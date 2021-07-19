@@ -17,6 +17,12 @@ public interface UserMapper {
     @Select("select * from user where role in (0,1) order by buildId")
     List<User> getAllAdmin();
 
+    @Select("select * from user where role = 2 order by buildId")
+    List<User> getAllStudent();
+
+    @Select("select * from user where role = 2 and buildId = #{buildId} order by buildId")
+    List<User> getBuildStudent(String buildId);
+
     @Select("select * from user")
     List<User> selectAllUsers();
 

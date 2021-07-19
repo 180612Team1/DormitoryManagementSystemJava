@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -48,6 +49,19 @@ public class userController {
     @GetMapping("getAllAdmin")
     public Object getAllAdmin(HttpServletRequest request, HttpServletResponse response) {
         List<User> user = userMapper.getAllAdmin();
+        return user;
+    }
+    @GetMapping("getAllStudent")
+    public Object getAllStudent(HttpServletRequest request, HttpServletResponse response) {
+        Integer role = Integer.valueOf(request.getParameter("role"));
+        List<User> user = null;
+        if(role ==0) {
+            user = userMapper.getAllStudent();
+        }
+        if(role ==1){
+            String buildId = request.getParameter("buildId");
+            user = userMapper.getBuildStudent(buildId);
+        }
         return user;
     }
 
@@ -141,6 +155,26 @@ public class userController {
         json.put("code", "1000");
         json.put("message", "注册成功");
         return json;
+    }
+
+    @PostMapping("addStu")
+    public boolean addStu(HttpServletRequest request,HttpServletResponse response){
+        String schoolId = request.getParameter("schoolId");
+        String userName = request.getParameter("userName");
+        String passWord = request.getParameter("passWord");
+        String phoneNumber = request.getParameter("phoneNumber");
+        String trueName = request.getParameter("trueName");
+        String buildId = request.getParameter("buildId");
+        String roomId = request.getParameter("roomId");
+        String checkTime = request.getParameter("checkTime");
+        String updateTime = request.getParameter("updateTime");
+
+        Integer result = userMapper.addStu(schoolId,userName,passWord,phoneNumber,trueName,checkTime,buildId,roomId,updateTime);
+        if (result == 1) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
