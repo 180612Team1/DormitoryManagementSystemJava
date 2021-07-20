@@ -5,10 +5,7 @@ import com.DormitoryManagementSystem.domain.User;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -65,11 +62,12 @@ public class userController {
         return user;
     }
 
-    @GetMapping("login")
-    public Object login(HttpServletRequest request, HttpServletResponse response) {
+    @PostMapping("login")
+    public Object login(HttpServletRequest request, HttpServletResponse response,@RequestBody User userInfo) {
+        System.out.println(userInfo);
 
-        String userName = request.getParameter("userName");
-        String passWord = request.getParameter("passWord");
+        String userName = userInfo.getUserName();
+        String passWord = userInfo.getPassWord();
         User user = userMapper.selectUser(userName);
         System.out.println(userName);
         JSONObject json = new JSONObject();
