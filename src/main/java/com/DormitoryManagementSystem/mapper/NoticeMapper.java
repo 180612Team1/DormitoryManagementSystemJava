@@ -27,7 +27,7 @@ public interface NoticeMapper {
     @Select("select * from notice where noticeForBuildId in('0',#{noticeForBuildId})")
     List<Notice> getAllNoticesByid(String buildId);
 
-    @Select("select * from notice")
+    @Select("select * from notice order by noticeTime desc")
     List<Notice> getAllNotices();
 
     @Select("select * from notice where id=#{id}")
