@@ -1,6 +1,7 @@
 package com.DormitoryManagementSystem.mapper;
 
 import com.DormitoryManagementSystem.domain.User;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -43,4 +44,6 @@ public interface UserMapper {
 
     @Select("select count(id) from user where buildId = #{buildId} and role = 2")
     Integer getStudentsByBuildId(String buildId);
+    @Delete("delete from user where schoolId = #{schoolId}")
+    boolean deleteAdminBySchoolId(Integer schoolId);
 }

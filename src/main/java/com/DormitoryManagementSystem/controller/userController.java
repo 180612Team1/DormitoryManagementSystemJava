@@ -127,6 +127,15 @@ public class userController {
         return count;
     }
 
+    @GetMapping("deleteAdminBySchoolId")
+    public boolean deleteAdminBySchoolId(HttpServletRequest request, HttpServletResponse response) {
+        int schoolId = Integer.parseInt(request.getParameter("schoolId"));
+        if (userMapper.deleteAdminBySchoolId(schoolId)) {
+            return true;
+        }
+        return false;
+    }
+
     @GetMapping("addAdmin")
     public Object addAdmin(HttpServletRequest request, HttpServletResponse response) {
         String schoolId = request.getParameter("schoolId");
