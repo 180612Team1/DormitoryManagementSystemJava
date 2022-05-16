@@ -14,6 +14,7 @@ import net.sf.json.JSONObject;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Logger;
 
 @Slf4j
 @RequestMapping("user")
@@ -101,7 +102,7 @@ public class userController {
     public Object searchUser(HttpServletRequest request, HttpServletResponse response) {
         String trueName = request.getParameter("trueName");
         String userName = request.getParameter("userName");
-        List resultCount = userMapper.searchUser(trueName, userName);
+        List<User> resultCount = userMapper.searchUser(trueName, userName);
         System.out.println(resultCount);
         JSONObject json = new JSONObject();
         if (resultCount.isEmpty()) {
@@ -122,7 +123,7 @@ public class userController {
         try {
             count = userMapper.getStudentsByBuildId(buildId);
         } catch (Exception e) {
-          log.error(e.getMessage());
+          Logger.getLogger(e.getMessage());
         }
         return count;
     }
